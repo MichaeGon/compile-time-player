@@ -21,4 +21,4 @@ library
 
 source-repository head
   type:     git
-  location: https://github.com/githubuser/cyt
+  location: https://github.com/MichaeGon/cyt
