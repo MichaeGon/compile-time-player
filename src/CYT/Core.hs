@@ -1,12 +1,16 @@
 module CYT.Core
-    ( brewConfig
+    ( playOnMac
+    , brewConfig
     , play
     ) where
 
 import System.Process
 
-brewConfig :: CreateProcess
-brewConfig = shell . unlines $ [
+playOnMac :: CreateProcess
+playOnMac = shell . unlines $ brewConfig' ++ play'
+
+brewConfig' :: [String]
+brewConfig' = [
     "ytdl=youtube-dl",
     "res=`brew list | grep ${ytdl}`",
     "if [ \"${res}\" != ${ytdl} ]; then",
@@ -23,7 +27,13 @@ brewConfig = shell . unlines $ [
     "fi",
     "echo 'done'"]
 
-play :: CreateProcess
-play = shell . unlines $ [
+brewConfig :: CreateProcess
+brewConfig = shell . unlines $ brewConfig'
+
+play' :: [String]
+play' = [
     "geko='https://www.youtube.com/watch?v=OxXzOA784X8'",
     "youtube-dl ${geko} -o - | mplayer - -novideo"]
+
+play :: CreateProcess
+play = shell . unlines $ play'
