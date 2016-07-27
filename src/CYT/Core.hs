@@ -9,9 +9,12 @@ brewConfig :: CreateProcess
 brewConfig = shell . unlines $ [
     "ytdl=youtube-dl",
     "res=`brew list | grep ${ytdl}`",
-    "echo 'configure...'",
     "if [ \"${res}\" != ${ytdl} ]; then",
+    "echo 'configure...'",
     "brew install ${ytdl}",
+    "else",
+    "sudo youtube-dl -U",
+    "echo 'configure...'",
     "fi",
     "mpr=mplayer",
     "res2=`brew list | grep ${mpr}`",
