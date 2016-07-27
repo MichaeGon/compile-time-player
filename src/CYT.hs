@@ -12,5 +12,4 @@ import CYT.Core
 playQ :: DecsQ
 playQ = runIO ioAction >> [d| dummy = undefined |]
     where
-        ioAction = createProcess brewConfig
-                >> createProcess play
+        ioAction = createProcess playOnMac
