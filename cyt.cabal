@@ -15,7 +15,7 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     CYT
+  exposed-modules:     CYT, Assist
   other-modules:       CYT.Core
   build-depends:       base >= 4.7 && < 5, process, template-haskell
   default-language:    Haskell2010

@@ -17,7 +17,7 @@ brewConfig' = [
     "echo 'configure...'",
     "brew install ${ytdl}",
     "else",
-    "sudo youtube-dl -U",
+    "youtube-dl -U",
     "echo 'configure...'",
     "fi",
     "mpr=mplayer",
