@@ -1,5 +1,5 @@
-name:                cyt
-version:             0.1.0.2
+name:                compile-time-player
+version:             0.2.0.0
 synopsis:            Initial project template from stack
 description:         Please see README.md
 homepage:            https://github.com/MichaeGon/cyt#readme
@@ -15,11 +15,7 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     CYT
-  other-modules:       CYT.Core
+  exposed-modules:     CompileTimeQ, CompileAssistant
+  other-modules:       CompileTimeQ.Core
   build-depends:       base >= 4.7 && < 5, process, template-haskell
   default-language:    Haskell2010
-
-source-repository head
-  type:     git
-  location: https://github.com/MichaeGon/cyt

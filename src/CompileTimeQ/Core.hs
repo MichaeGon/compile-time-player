@@ -1,4 +1,4 @@
-module CYT.Core
+module CompileTimeQ.Core
     ( playOnMac
     , brewConfig
     , play
@@ -17,7 +17,7 @@ brewConfig' = [
     "echo 'configure...'",
     "brew install ${ytdl}",
     "else",
-    "sudo youtube-dl -U",
+    "youtube-dl -U",
     "echo 'configure...'",
     "fi",
     "mpr=mplayer",
