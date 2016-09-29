@@ -1,4 +1,4 @@
-module CYT.Core
+module CompileTimeQ.Core
     ( playOnMac
     , brewConfig
     , play

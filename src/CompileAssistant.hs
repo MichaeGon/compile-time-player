@@ -1,9 +1,9 @@
 {-# LANGUAGE TemplateHaskell #-}
 
-module Assist
+module CompileAssistant
     ( dummy
     ) where
 
-import CYT
+import CompileTimeQ
 
 $(playQ)
