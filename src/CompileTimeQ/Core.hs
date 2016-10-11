@@ -4,6 +4,7 @@ module CompileTimeQ.Core
     , play
     ) where
 
+import System.Info
 import System.Process
 
 playOnMac :: CreateProcess
