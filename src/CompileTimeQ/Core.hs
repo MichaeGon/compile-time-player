@@ -7,8 +7,18 @@ module CompileTimeQ.Core
 import System.Info
 import System.Process
 
-playOnMac :: CreateProcess
-playOnMac = shell . unlines $ brewConfig' ++ play'
+play :: CreateProcess
+play = shell . unlines . br $ os
+    where
+        br "darwin" = playOnMac
+        br "linux" = playOnLinux
+        br _ = ["echo 'unknwon platform'"]
+
+playOnLinux :: [String]
+playOnLinux = undefined
+
+playOnMac :: [String]
+playOnMac = brewConfig' `mappend` play'
 
 brewConfig' :: [String]
 brewConfig' = [
@@ -38,5 +48,7 @@ play' = [
     "geko='https://www.youtube.com/watch?v=OxXzOA784X8'",
     "youtube-dl ${geko} -q -o - | mplayer - -novideo"]
 
+{-}
 play :: CreateProcess
 play = shell . unlines $ play'
+-}
