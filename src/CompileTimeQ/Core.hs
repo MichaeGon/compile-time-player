@@ -4,7 +4,10 @@ module CompileTimeQ.Core
     , play
     ) where
 
+import System.Directory
 import System.Info
+import System.IO
+import System.IO.Temp
 import System.Process
 
 play :: CreateProcess
