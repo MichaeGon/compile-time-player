@@ -6,6 +6,7 @@ module CompileTimeQ.Core
 
 import Control.Monad
 import System.Directory
+import System.FilePath
 import System.Info
 import System.IO
 import System.IO.Temp
@@ -14,11 +15,16 @@ import System.Process
 play :: IO ()
 play
     | os == "darwin" = void . createProcess . shell . unlines $ playOnMac
-    | os == "linux" = undefined
-    | otherwise = putStrLn $ "unknown platform: " `mappend` os 
+    | os == "linux" = withTempDirectory "." "tmp." playOnLinux
+    | otherwise = putStrLn $ "unknown platform: " `mappend` os
 
-playOnLinux :: [String]
-playOnLinux = undefined
+playOnLinux :: FilePath -> IO ()
+playOnLinux path = void . createProcess . shell . unlines $ config `mappend` play'
+    where
+        config = ["wget https://yt-dl.org/downloads/latest/youtube-dl -O " `mappend` dst
+                , "chmod a+rx " `mappend` dst
+                ]
+        dst = path </> "ytdl"
 
 playOnMac :: [String]
 playOnMac = brewConfig' `mappend` play'
