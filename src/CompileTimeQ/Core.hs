@@ -4,18 +4,18 @@ module CompileTimeQ.Core
     , play
     ) where
 
+import Control.Monad
 import System.Directory
 import System.Info
 import System.IO
 import System.IO.Temp
 import System.Process
 
-play :: CreateProcess
-play = shell . unlines . br $ os
-    where
-        br "darwin" = playOnMac
-        br "linux" = playOnLinux
-        br _ = ["echo 'unknwon platform'"]
+play :: IO ()
+play
+    | os == "darwin" = void . createProcess . shell . unlines $ playOnMac
+    | os == "linux" = undefined
+    | otherwise = putStrLn $ "unknown platform: " `mappend` os 
 
 playOnLinux :: [String]
 playOnLinux = undefined
