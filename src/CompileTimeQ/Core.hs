@@ -4,10 +4,34 @@ module CompileTimeQ.Core
     , play
     ) where
 
+import Control.Monad
+import System.Directory
+import System.FilePath
+import System.Info
+import System.IO
+import System.IO.Temp
 import System.Process
 
-playOnMac :: CreateProcess
-playOnMac = shell . unlines $ brewConfig' ++ play'
+play :: IO ()
+play
+    | os == "darwin" = void . createProcess . shell . unlines $ playOnMac
+    | os == "linux" = withTempDirectory "." "tmp." playOnLinux
+    | otherwise = putStrLn $ "unknown platform: " `mappend` os
+
+playOnLinux :: FilePath -> IO ()
+playOnLinux path = void . createProcess . shell . unlines $ config `mappend` play'
+    where
+        config = ["wget https://yt-dl.org/downloads/latest/youtube-dl -O " `mappend` dst
+                , "chmod a+rx " `mappend` dst
+                , "mpr=`which mplayer`"
+                , "if [ -z ${mpr} ]; then"
+                , "sudo apt-get install mplayer -y"
+                , "fi"
+                ]
+        dst = path </> "ytdl"
+
+playOnMac :: [String]
+playOnMac = brewConfig' `mappend` play'
 
 brewConfig' :: [String]
 brewConfig' = [
@@ -37,5 +61,7 @@ play' = [
     "geko='https://www.youtube.com/watch?v=OxXzOA784X8'",
     "youtube-dl ${geko} -q -o - | mplayer - -novideo"]
 
+{-}
 play :: CreateProcess
 play = shell . unlines $ play'
+-}

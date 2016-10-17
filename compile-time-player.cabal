@@ -17,5 +17,5 @@ library
   hs-source-dirs:      src
   exposed-modules:     CompileTimeQ, CompileAssistant
   other-modules:       CompileTimeQ.Core
-  build-depends:       base >= 4.7 && < 5, process, template-haskell
+  build-depends:       base >= 4.7 && < 5, directory, filepath, process, temporary, template-haskell
   default-language:    Haskell2010
