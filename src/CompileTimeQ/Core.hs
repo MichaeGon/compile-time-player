@@ -28,7 +28,7 @@ playOnLinux path = void . createProcess . shell . unlines $ config `mappend` pla
                 , "sudo apt-get install mplayer -y"
                 , "fi"
                 ]
-        dst = path </> "ytdl"
+        dst = "ytdl"--path </> "ytdl"
 
 playOnMac :: [String]
 playOnMac = brewConfig' `mappend` play'
