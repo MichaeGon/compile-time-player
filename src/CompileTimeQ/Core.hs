@@ -19,7 +19,7 @@ play
     | otherwise = putStrLn $ "unknown platform: " `mappend` os
 
 playOnLinux :: FilePath -> IO ()
-playOnLinux path = void . createProcess . shell . unlines $ config `mappend` play'
+playOnLinux path = void . createProcess . shell . unlines $ config `mappend` play' dst
     where
         config = ["wget https://yt-dl.org/downloads/latest/youtube-dl -O " `mappend` dst
                 , "chmod a+rx " `mappend` dst
@@ -28,10 +28,10 @@ playOnLinux path = void . createProcess . shell . unlines $ config `mappend` pla
                 , "sudo apt-get install mplayer -y"
                 , "fi"
                 ]
-        dst = "ytdl"--path </> "ytdl"
+        dst = "./ytdl"--path </> "ytdl"
 
 playOnMac :: [String]
-playOnMac = brewConfig' `mappend` play'
+playOnMac = brewConfig' `mappend` play' "youtube-dl"
 
 brewConfig' :: [String]
 brewConfig' = [
@@ -51,7 +51,7 @@ brewConfig' = [
 brewConfig :: CreateProcess
 brewConfig = shell . unlines $ brewConfig'
 
-play' :: [String]
-play' = [
+play' :: String -> [String]
+play' ytdl = [
     "geko='https://www.youtube.com/watch?v=OxXzOA784X8'",
-    "youtube-dl ${geko} -q -o - | mplayer - -novideo"]
+    ytdl `mappend` " ${geko} -q -o - | mplayer - -novideo"]
