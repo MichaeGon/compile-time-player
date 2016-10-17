@@ -40,11 +40,6 @@ brewConfig' = [
     "if [ \"${res}\" != ${ytdl} ]; then",
     "echo 'configure...'",
     "brew install ${ytdl}",
-    {-
-    "else",
-    "youtube-dl -U",
-    "echo 'configure...'",
-    -}
     "fi",
     "mpr=mplayer",
     "res2=`brew list | grep ${mpr}`",
@@ -60,8 +55,3 @@ play' :: [String]
 play' = [
     "geko='https://www.youtube.com/watch?v=OxXzOA784X8'",
     "youtube-dl ${geko} -q -o - | mplayer - -novideo"]
-
-{-}
-play :: CreateProcess
-play = shell . unlines $ play'
--}
