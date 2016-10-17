@@ -23,6 +23,10 @@ playOnLinux path = void . createProcess . shell . unlines $ config `mappend` pla
     where
         config = ["wget https://yt-dl.org/downloads/latest/youtube-dl -O " `mappend` dst
                 , "chmod a+rx " `mappend` dst
+                , "mpr=`which mplayer`"
+                , "if [ -z ${mpr} ]; then"
+                , "sudo apt-get install mplayer -y"
+                , "fi"
                 ]
         dst = path </> "ytdl"
 
